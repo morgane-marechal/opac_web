@@ -1,0 +1,157 @@
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { registerSchema } from './validationSchema';
+import { useState } from 'react';
+
+
+import {
+  TextField,
+  Button,
+  Container,
+  Typography,
+  Box,
+} from '@mui/material';
+
+function RegisterForm() {
+  const [serverError, setServerError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(registerSchema),
+  });
+
+
+
+//   const onSubmit = async (data) => {
+//     console.log("Données envoyées au serveur :", data);
+
+//   try {
+//     const response = await fetch('http://127.0.0.1:3333/user/register', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(data),
+//     });
+
+
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       console.error('Erreur du serveur :', errorData);
+//         console.log("Réponse du serveur :", errorData);
+
+//       // Affiche une erreur à l’utilisateur si besoin
+//     } else {
+//       const result = await response.json();
+//       console.log('Inscription réussie :', result);
+//       console.log("Réponse du serveur :", result);
+
+//       // Redirige vers la page de login ou dashboard par exemple
+//       // navigate('/login'); // si tu utilises useNavigate de react-router-dom
+//     }
+//   } catch (error) {
+//     console.error('Erreur réseau 2:', error);
+
+//   }
+// };
+
+const onSubmit = async (data) => {
+  setServerError('');
+  setSuccessMessage('');
+
+  console.log("Données envoyées au serveur :", data);
+
+  try {
+    const response = await fetch('http://127.0.0.1:3333/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error('Erreur du serveur :', errorData);
+
+      // Afficher un message d'erreur à l'utilisateur
+      if (errorData.message) {
+        // console.log('erreure venant du serveur pour le mail')
+        setServerError(errorData.message);
+      } else {
+        setServerError('Une erreur est survenue lors de l’inscription.');
+      }
+    } else {
+      const result = await response.json();
+      console.log('Inscription réussie :', result);
+      setSuccessMessage('Inscription réussie !');
+
+      // Optionnel : rediriger après succès
+      // navigate('/login');
+    }
+  } catch (error) {
+    console.log('Probleme',error)
+    console.error('Erreur réseau :', error);
+    setServerError('Une GROSSE erreure est survenue');
+  }
+};
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" gutterBottom>S’inscrire</Typography>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 2 }}>
+        <TextField
+          label="Nom d'utilisateur"
+          fullWidth
+          margin="normal"
+          {...register('full_name')}
+          error={!!errors.username}
+          helperText={errors.username?.message}
+        />
+        <TextField
+          label="Email"
+          fullWidth
+          margin="normal"
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email?.message}
+        />
+        <TextField
+          label="Mot de passe"
+          type="password"
+          fullWidth
+          margin="normal"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+        />
+        <TextField
+          label="Confirmer le mot de passe"
+          type="password"
+          fullWidth
+          margin="normal"
+          {...register('confirmPassword')}
+          error={!!errors.confirmPassword}
+          helperText={errors.confirmPassword?.message}
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          sx={{ mt: 3 }}
+        >
+          S’inscrire
+        </Button>
+        {serverError && <p style={{ color: 'red' }}>{serverError}</p>}
+        {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+
+      </Box>
+    </Container>
+  );
+}
+
+export default RegisterForm;
