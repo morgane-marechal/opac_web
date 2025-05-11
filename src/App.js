@@ -1,20 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
 import React from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as Yup from "yup";
+import './App.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import RegisterForm from './form_register';
-// import Login from './Login'; 
+import LoginForm from './form_connection';
+import Dashboard from './Dashboard'; 
+import Navbar from './NavBar';
+import PrivateRoute from './PrivateRoute'; 
 
 function App() {
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/register" element={<RegisterForm />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="*" element={<Navigate to="/register" replace />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>
   );

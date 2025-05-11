@@ -13,3 +13,11 @@ export const registerSchema = yup.object().shape({
     .required('Confirmation du mot de passe requise'),
 });
 
+export const loginSchema = yup.object().shape({
+  email: yup.string().email('Email invalide').required('Email requis'),
+  password: yup
+    .string()
+    .min(6, 'Le mot de passe doit contenir au moins 6 caractères')
+    .required('Mot de passe requis'),
+});
+

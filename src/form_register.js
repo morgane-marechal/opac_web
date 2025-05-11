@@ -24,41 +24,6 @@ function RegisterForm() {
     resolver: yupResolver(registerSchema),
   });
 
-
-
-//   const onSubmit = async (data) => {
-//     console.log("Données envoyées au serveur :", data);
-
-//   try {
-//     const response = await fetch('http://127.0.0.1:3333/user/register', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(data),
-//     });
-
-
-//     if (!response.ok) {
-//       const errorData = await response.json();
-//       console.error('Erreur du serveur :', errorData);
-//         console.log("Réponse du serveur :", errorData);
-
-//       // Affiche une erreur à l’utilisateur si besoin
-//     } else {
-//       const result = await response.json();
-//       console.log('Inscription réussie :', result);
-//       console.log("Réponse du serveur :", result);
-
-//       // Redirige vers la page de login ou dashboard par exemple
-//       // navigate('/login'); // si tu utilises useNavigate de react-router-dom
-//     }
-//   } catch (error) {
-//     console.error('Erreur réseau 2:', error);
-
-//   }
-// };
-
 const onSubmit = async (data) => {
   setServerError('');
   setSuccessMessage('');
