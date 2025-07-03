@@ -44,9 +44,7 @@ const onSubmit = async (data) => {
       const errorData = await response.json();
       console.error('Erreur du serveur :', errorData);
 
-      // Afficher un message d'erreur à l'utilisateur
       if (errorData.message) {
-        // console.log('erreure venant du serveur pour le mail')
         setServerError(errorData.message);
       } else {
         setServerError('Une erreur est survenue lors de l’inscription.');
@@ -56,8 +54,6 @@ const onSubmit = async (data) => {
       console.log('Inscription réussie :', result);
       setSuccessMessage('Inscription réussie !');
 
-      // Optionnel : rediriger après succès
-      // navigate('/login');
     }
   } catch (error) {
     console.log('Probleme',error)
@@ -115,7 +111,7 @@ const onSubmit = async (data) => {
         </Button>
         {serverError && <p style={{ color: 'red' }}>{serverError}</p>}
         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-
+        
       </Box>
       </Paper>
     </Container>

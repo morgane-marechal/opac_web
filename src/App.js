@@ -6,14 +6,18 @@ import LoginForm from './form_connection';
 import Dashboard from './Dashboard'; 
 import Navbar from './NavBar';
 import PrivateRoute from './PrivateRoute'; 
+import Home from './Home';
+import About from './About';
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/dashboard"
           element={
