@@ -11,6 +11,7 @@ import {
   Container,
   Typography,
   Box,
+  Paper
 } from '@mui/material';
 
 function RegisterForm() {
@@ -67,6 +68,7 @@ const onSubmit = async (data) => {
 
   return (
     <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
       <Typography variant="h4" gutterBottom>S’inscrire</Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 2 }}>
         <TextField
@@ -115,6 +117,7 @@ const onSubmit = async (data) => {
         {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
 
       </Box>
+      </Paper>
     </Container>
   );
 }
