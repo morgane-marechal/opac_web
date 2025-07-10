@@ -19,7 +19,6 @@ describe('Inscription et connexion', () => {
     cy.wait(2000);
     cy.contains('Inscription réussie !', { timeout: 10000 }).should('be.visible');
 
-    // Connexion
     cy.visit('/login');
 
     cy.get('input[name="email"]').type(user.email);
@@ -27,11 +26,7 @@ describe('Inscription et connexion', () => {
 
     cy.get('button[type="submit"]').click();
 
-    // Vérifie que la connexion a réussi,
-    // par exemple en s’assurant que l’URL contient /dashboard
     cy.url().should('include', '/dashboard');
-
-    // Ou vérifier qu’un élément spécifique du dashboard est visible
     cy.contains('Bienvenue').should('be.visible');
   });
 });

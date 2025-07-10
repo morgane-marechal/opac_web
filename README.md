@@ -4,6 +4,26 @@ Une application web complète pour la gestion d'une bibliothèque, construite av
 Elle permet l'enregistrement et la gestion des utilisateurs, l'ajout et l'emprunt de livres, ainsi que la gestion de profil.
 
 ---
+.
+
+## 🚀 Installation locale
+
+## Prérequis
+Node.js (v18+)
+npm (v9+) ou yarn
+PostgreSQL (v15+)
+Git
+
+## Installer le projet
+
+Ce projet n'est que la partie front-end du SIGB !
+git clone https://github.com/morgane-marechal/opac_web.git
+cd opac_web
+
+Installer les dépendances
+npm install
+# ou
+yarn install
 
 ## ✨ Fonctionnalités
 
@@ -44,6 +64,8 @@ Validation côté frontend : Yup + React Hook Form
 Validation côté backend : VineJS (AdonisJS)
 
 ---
+
+
 
 👨‍💻 Auteur
 Développé par Morgane Maréchal
