@@ -8,6 +8,7 @@ import Navbar from './NavBar';
 import PrivateRoute from './PrivateRoute'; 
 import Home from './Home';
 import About from './About';
+import AllBooks from './AllBooks';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/about" element={<About />} />
+        <Route path="/allbooks" element={<AllBooks />} />
         <Route
           path="/dashboard"
           element={

@@ -19,8 +19,11 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Mon App
+          <Button color="inherit" component={Link} to="/allbooks">
+                Notre collection
+          </Button>        
         </Typography>
+
         {token && right === '1' && (
           <>
             <Button color="inherit" component={Link} to="/admin/users">
