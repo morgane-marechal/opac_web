@@ -19,7 +19,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Button color="inherit" component={Link} to="/allbooks">
+          <Button color="primary.main" component={Link} to="/allbooks">
                 Notre collection
           </Button>        
         </Typography>
@@ -39,13 +39,13 @@ const Navbar = () => {
             <Button color="inherit" component={Link} to="/dashboard">
               Tableau de bord
             </Button>
-            <Button color="inherit" onClick={handleLogout}>
+            <Button color="#ba000d" onClick={handleLogout}>
               Déconnexion
             </Button>
           </>
         ) : (
           <>
-            <Button color="inherit" component={Link} to="/login">
+            <Button color="#ba000d" component={Link} to="/login">
               Connexion
             </Button>
             <Button color="inherit" component={Link} to="/register">

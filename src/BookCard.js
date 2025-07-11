@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import cover from './placeholderbook.png';
-import { useEffect, useState } from "react";
 
 const BookCard = (props) => {
     const authors = props.data.autors || [];
@@ -28,7 +27,7 @@ const BookCard = (props) => {
                 flexShrink: 0 }
                 }>
                 <CardContent>
-                    <Typography gutterBottom variant="h6" component="div">
+                    <Typography gutterBottom variant="h6" color="text.secondary" component="div">
                         {props.data.title}
                     </Typography>
                     <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
