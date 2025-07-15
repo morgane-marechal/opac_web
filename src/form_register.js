@@ -105,7 +105,9 @@ const onSubmit = async (data) => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3 }}
+          sx={{ 
+            color: '#f0eae1','&:hover': { backgroundColor: 'rgb(60, 137, 201)' }
+          }}
         >
           S’inscrire
         </Button>

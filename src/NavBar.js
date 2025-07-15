@@ -7,7 +7,7 @@ const Navbar = () => {
   const token = localStorage.getItem('token');
   const user = localStorage.getItem('user');
   const right = localStorage.getItem('right');
-  console.log('userRight', right)
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -16,39 +16,87 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#2A5C8D' }}> {/* Couleur primaire */}
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          <Button color="primary.main" component={Link} to="/allbooks">
-                Notre collection
+          <Button 
+            component={Link} 
+            to="/allbooks"
+            sx={{ 
+              color: '#f0eae1', // Beige clair
+              '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+            }}
+          >
+            Notre collection
           </Button>        
         </Typography>
 
         {token && right === '1' && (
           <>
-            <Button color="inherit" component={Link} to="/admin/users">
+            <Button 
+              component={Link} 
+              to="/admin/users"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
               Gérer les utilisateurs
             </Button>
-            <Button color="inherit" component={Link} to="/admin/books">
+            <Button 
+              component={Link} 
+              to="/admin/books"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
               Gérer les livres
             </Button>
           </>
         )}
         {token ? (
           <>
-            <Button color="inherit" component={Link} to="/dashboard">
+            <Button 
+              component={Link} 
+              to="/dashboard"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
               Tableau de bord
             </Button>
-            <Button color="#ba000d" onClick={handleLogout}>
+            <Button 
+              onClick={handleLogout}
+              sx={{ 
+                color: '#ba000d', // Rouge
+                '&:hover': { backgroundColor: 'rgba(186, 0, 13, 0.1)' }
+              }}
+            >
               Déconnexion
             </Button>
           </>
         ) : (
           <>
-            <Button color="#ba000d" component={Link} to="/login">
+            <Button 
+              component={Link} 
+              to="/login"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
               Connexion
             </Button>
-            <Button color="inherit" component={Link} to="/register">
+            <Button 
+              component={Link} 
+              to="/register"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
               Inscription
             </Button>
           </>

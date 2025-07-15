@@ -35,7 +35,7 @@ function AllBooks() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Typography variant="h3" component="h1" color="primary.main" gutterBottom>
+      <Typography variant="h3" component="h1" color="text.secondary" gutterBottom>
         Notre collection
       </Typography>
       

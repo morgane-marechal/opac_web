@@ -83,7 +83,11 @@ const LoginForm = () => {
             error={!!errors.password}
             helperText={errors.password ? errors.password.message : ''}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+
+          <Button type="submit" variant="contained" color="primary" fullWidth               
+              sx={{ 
+                color: '#f0eae1','&:hover': { backgroundColor: 'rgb(60, 137, 201)' }
+              }}>
             Se connecter
           </Button>
         </Box>
