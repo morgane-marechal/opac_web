@@ -7,17 +7,25 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 import cover from './media/placeholderbook.png';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const BookCard = (props) => {
-    console.log(props.editor)
-    const authors = props.data.autors || [];
-    const editor = props.data.editor || [];
+    console.log("props" , props)
+      const { state } = useLocation();
+        // const book = state?.book;
+        console.log("state", state.book.data)
+    const authors = state.autors || [];
+    const editor = state.editor || [];
+    const coverImage = cover;
 
-    const coverImage = props.data.cover ? require(`./media/${props.data.cover}`) : cover;
     return (
-        <Card sx={{ display: 'flex', maxWidth: 350 , height: 300}}>
+            <Card sx={{ 
+                display: 'flex',
+                width: '70%',        
+                maxWidth: 1000,       
+                height: 600,
+                margin: '30px auto',  
+            }}>
             <CardMedia
                 sx={{ 
                     width: 200,
@@ -34,10 +42,10 @@ const BookCard = (props) => {
                 }>
                 <CardContent>
                     <Typography gutterBottom variant="h6" color="primary.main" component="div">
-                        {props.data.title}
-                    </Typography>
+                        {state.book.data.title}
+                   </Typography>
                     <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
-                        {authors.map(author => author.name).join(', ')}                  
+                        {/* {authors.map(author => author.name).join(', ')}                   */}
                     </Typography>
                     <Typography 
                         variant="body1" 
@@ -51,16 +59,14 @@ const BookCard = (props) => {
                             minHeight: '6em' 
                         }}
                     >
-                        {props.data.description}
+                        {/* {props.data.description} */}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                        Edition : {editor.name}               
+                        {/* Edition : {editor.name}                */}
                     </Typography>
                 </CardContent>
                 <CardActions sx={{ mt: 'auto' }} color="tertiary.main">
-                    <Button size="small" component={Link} 
-                        to="/bookinfo" state={{ book: props }}>En savoir plus
-                    </Button>
+                    <Button size="small">Réserver</Button>
                 </CardActions>
             </Box>
         </Card>

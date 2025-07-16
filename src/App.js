@@ -9,6 +9,7 @@ import PrivateRoute from './PrivateRoute';
 import Home from './Home';
 import About from './About';
 import AllBooks from './AllBooks';
+import BookInfo from './BookInfo';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/about" element={<About />} />
         <Route path="/allbooks" element={<AllBooks />} />
+        <Route path="/bookinfo" element={<BookInfo />} />
         <Route
           path="/dashboard"
           element={
