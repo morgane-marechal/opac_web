@@ -26,7 +26,7 @@ const BookManagementCard = (props) => {
         const confirmation = window.confirm(`Êtes-vous sûr de vouloir supprimer ce livre "${props.data.title}"  ?`);
         if (!confirmation) return; 
         try {
-            const response = await fetch(`http://localhost:3000/api/books/${props.data.id}`, {
+            const response = await fetch(`http://localhost:3333/deleteBookById/${id}`, {
             method: 'DELETE',
             });
             if (!response.ok) {
@@ -37,7 +37,6 @@ const BookManagementCard = (props) => {
             alert(`Échec de la suppression : ${error.message}`);
         }
     };
-
 
     return (
         <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>

@@ -37,7 +37,7 @@ const onSubmit = async (data) => {
   console.log("Données envoyées au serveur :", data);
 
   try {
-    const response = await fetch(`http://127.0.0.1:3333/user/updateBook/${props.data.id}`, {
+    const response = await fetch(`http://127.0.0.1:3333/updateBook/${props.data.id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
