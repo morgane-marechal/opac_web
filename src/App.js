@@ -10,6 +10,8 @@ import Home from './Home';
 import About from './About';
 import AllBooks from './AllBooks';
 import BookInfo from './BookInfo';
+import BooksManagement from './BooksManagement';
+import BookManageForm from './BookManageForm';
 
 function App() {
   return (
@@ -30,6 +32,10 @@ function App() {
             </PrivateRoute>
           }
         />
+
+      <Route path="/admin/books" element={<BooksManagement/>}/>
+      <Route path="/admin/manageBook" element={<BookManageForm/>}/>
+      
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

@@ -5,6 +5,7 @@ import Chip from '@mui/material/Chip'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
+// import ListeBorrowedBookCard from './BooksBorrowedByUser';
 
 
 const Dashboard = () => {
@@ -20,11 +21,10 @@ const Dashboard = () => {
 
   return (
     <Box sx={{p:2}} >
-
-      <Card sx={{ maxWidth: 345, margin: 5}}>
+       <Card sx={{ maxWidth: 345, margin: 5}}>
         <CardContent>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Bienvenue, {user?.fullName} 
+          Bienvenue, {user?.fullName} Avec les droits : {user?.right}
         </Typography>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           {user?.email}
@@ -37,20 +37,15 @@ const Dashboard = () => {
           <Button size="small">Mettre à jour</Button>
         </CardActions>
       </Card>
-
-
-
       <Divider>
         <Chip label="Emprunts" size="small" />
       </Divider>
-
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Nombre d'emprunts en ce moment :
       </Typography>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres actuellement empruntés :
       </Typography>
-
       <Divider>
         <Chip label="Retard" size="small" />
       </Divider>
@@ -60,7 +55,6 @@ const Dashboard = () => {
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres en retard :
       </Typography>
-
       <Divider>
         <Chip label="Réservation" size="small" />
       </Divider>
@@ -69,7 +63,8 @@ const Dashboard = () => {
       </Typography>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres réservés :
-      </Typography>
+      </Typography> 
+      {/* <ListeBorrowedBookCard></ListeBorrowedBookCard> */}
     </Box>
   );
 };

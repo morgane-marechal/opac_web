@@ -70,7 +70,7 @@ const Navbar = () => {
             <Button 
               onClick={handleLogout}
               sx={{ 
-                color: '#ba000d', // Rouge
+                color: 'rgb(250, 160, 132)', // Rouge
                 '&:hover': { backgroundColor: 'rgba(186, 0, 13, 0.1)' }
               }}
             >
