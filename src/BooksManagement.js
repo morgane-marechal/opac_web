@@ -3,6 +3,10 @@ import './App.css';
 import { Typography, Container, Grid } from '@mui/material'; // Ajout de Grid
 import { useEffect, useState } from "react";
 import BookManagementCard from './BookManagementCard';
+import Button from '@mui/material/Button';
+import { Link, useNavigate } from 'react-router-dom';
+
+
 
 function BooksManagement() {
   const [data, setData] = useState([]); 
@@ -38,6 +42,10 @@ function BooksManagement() {
       <Typography variant="h3" component="h1" color="text.secondary" gutterBottom>
         Gestion des documents
       </Typography>
+        <Button size="small" component={Link} 
+            to="/admin/registerBook">
+            Ajouter un document
+        </Button>
       
       {/* <Grid container spacing={3}> */}
         {data.map((book, index) => (

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import BookCard from './BookCard';
 
 function AllBooks() {
-  const [data, setData] = useState([]); // Initialiser avec un tableau vide
+  const [data, setData] = useState([]); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

@@ -12,6 +12,8 @@ import AllBooks from './AllBooks';
 import BookInfo from './BookInfo';
 import BooksManagement from './BooksManagement';
 import BookManageForm from './BookManageForm';
+import BookRegisterForm from './BookRegisterForm';
+
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
 
       <Route path="/admin/books" element={<BooksManagement/>}/>
       <Route path="/admin/manageBook" element={<BookManageForm/>}/>
+      <Route path="/admin/registerBook" element={<BookRegisterForm/>}/>
+
       
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>

@@ -21,3 +21,22 @@ export const loginSchema = yup.object().shape({
     .required('Mot de passe requis'),
 });
 
+export const updateBookSchema = yup.object().shape({
+  title: yup.string(),
+  description: yup.string(),
+  isbn: yup.string(),
+  dewey_indice: yup.string(),
+  cover: yup.string(),
+  pdf: yup.string(),
+  editor: yup.string(),
+});
+
+export const registerBookSchema = yup.object().shape({
+  title: yup.string().required("Le titre est requis"),
+  description: yup.string().required("La description est requise"),
+  isbn: yup.string(),
+  dewey_indice: yup.string(),
+  cover: yup.string(),
+  pdf: yup.string(),
+  editor: yup.string().required("L'éditeur est requis"),
+});
