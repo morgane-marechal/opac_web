@@ -11,7 +11,7 @@ console.log("status livre emprunté", status)
 
     const BookStatus = {
     1: ['Indisponible', 'rgb(243, 40, 25)'],
-    2: ['Réservé', 'rgb(90, 51, 109)'],
+    2: ['Réservé', 'rgb(169, 142, 54)'],
     3: ['Manquant', 'rgb(117, 76, 38)'],
     4: ['Disponible', 'rgb(50, 128, 27)']
     };

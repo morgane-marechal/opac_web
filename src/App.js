@@ -13,6 +13,8 @@ import BookInfo from './BookInfo';
 import BooksManagement from './BooksManagement';
 import BookManageForm from './BookManageForm';
 import BookRegisterForm from './BookRegisterForm';
+import BookCopyRegisterForm from './BookCopyRegisterForm';
+
 
 
 function App() {
@@ -38,6 +40,8 @@ function App() {
       <Route path="/admin/books" element={<BooksManagement/>}/>
       <Route path="/admin/manageBook" element={<BookManageForm/>}/>
       <Route path="/admin/registerBook" element={<BookRegisterForm/>}/>
+      <Route path="/admin/registerBookCopy" element={<BookCopyRegisterForm/>}/>
+
 
       
         <Route path="*" element={<Navigate to="/login" replace />} />

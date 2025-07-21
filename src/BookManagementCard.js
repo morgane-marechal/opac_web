@@ -2,11 +2,9 @@ import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-import cover from './media/placeholderbook.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBeer } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
@@ -75,10 +73,14 @@ const BookManagementCard = (props) => {
             </Box>
                 <CardActions color="tertiary.main">
                     <Button size="small" component={Link} 
-                        to="/bookinfo" state={{ book: props }}> <BsFillInfoCircleFill size='30px' color='green'/> 
+                        to="/admin/registerBookCopy" state={{ book: props }}> <FaDeleteLeft size='30px' color='#4B8F8C'/> 
+                        Ajouter
                     </Button>
-                                        <Button size="small" component={Link} 
-                        to="/admin/manageBook" state={{ book: props }}> <BsTools size='30px' color='orange'/> 
+                    <Button size="small" component={Link} 
+                        to="/bookinfo" state={{ book: props }}> <BsFillInfoCircleFill size='30px' color='#4B8F8C'/> 
+                    </Button>
+                    <Button size="small" component={Link} 
+                        to="/admin/manageBook" state={{ book: props }}> <BsTools size='30px' color='#A98E36'/> 
                     </Button>
                     <Button size="small" component={Link} 
                         onClick={() => deleteBook(props.data.id)} > <FaDeleteLeft size='30px' color='red'/> 

@@ -44,7 +44,7 @@ function BooksManagement() {
       </Typography>
         <Button size="small" component={Link} 
             to="/admin/registerBook">
-            Ajouter un document
+            Ajouter une notice de document
         </Button>
       
       {/* <Grid container spacing={3}> */}

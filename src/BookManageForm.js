@@ -131,7 +131,7 @@ const BookManageForm = (props) => {
   return (
     <Container maxWidth="m">
       <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
-      <Typography variant="h4" gutterBottom>Mettre à jour la notice</Typography>
+      <Typography variant="h4" gutterBottom color='#A98E36'>Mettre à jour la notice</Typography>
       <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{ mt: 2 }}>
         <Box sx={{display:"flex"}}>
         <TextField

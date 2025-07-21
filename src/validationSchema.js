@@ -34,7 +34,7 @@ export const updateBookSchema = yup.object().shape({
 export const registerBookSchema = yup.object().shape({
   title: yup.string().required("Le titre est requis"),
   description: yup.string().required("La description est requise"),
-  isbn: yup.string(),
+  isbn: yup.string().required("L'ISBN est requis'"),
   dewey_indice: yup.string(),
   cover: yup.string(),
   pdf: yup.string(),

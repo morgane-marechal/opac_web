@@ -71,7 +71,7 @@ const Navbar = () => {
               onClick={handleLogout}
               sx={{ 
                 color: 'rgb(250, 160, 132)', // Rouge
-                '&:hover': { backgroundColor: 'rgba(186, 0, 13, 0.1)' }
+                '&:hover': { backgroundColor: 'rgb(169, 142, 54, 0.2)'}
               }}
             >
               Déconnexion
