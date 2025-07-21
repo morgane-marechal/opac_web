@@ -3,7 +3,7 @@ name: Cypress E2E Tests
 on:
   push:
     branches:
-      - '**'  
+      - '**'
 
 jobs:
   cypress-run:
@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run specific Cypress test
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm run dev
-          wait-on: 'http://localhost:3333'
-          wait-on-timeout: 60 
+          start: npm start
+          wait-on: 'http://localhost:3000'
+          wait-on-timeout: 60
           browser: chrome
           spec: cypress/e2e/register.cy.js
