@@ -104,10 +104,10 @@ const passedProps = state?.book;
               {...register('state', { required: 'Ce champ est requis' })}
               error={Boolean(errors.state)}
             >
-              <MenuItem value="4">Disponible</MenuItem>
-              <MenuItem value="2">Réservé</MenuItem>
-              <MenuItem value="3">Perdu</MenuItem>
-              <MenuItem value="1">Indisponible</MenuItem>
+            <MenuItem value="4" data-cy="state-disponible">Disponible</MenuItem>
+            <MenuItem value="2" data-cy="state-reserve">Réservé</MenuItem>
+            <MenuItem value="3" data-cy="state-perdu">Perdu</MenuItem>
+            <MenuItem value="1" data-cy="state-indisponible">Indisponible</MenuItem>
             </Select>
             {errors.state && (
               <Typography color="error" variant="body2">

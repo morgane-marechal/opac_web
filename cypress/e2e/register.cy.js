@@ -16,7 +16,7 @@ describe('Inscription et connexion', () => {
 
     cy.get('button[type="submit"]').click();
 
-    cy.wait(2000);
+    cy.wait(1000);
     cy.contains('Inscription réussie !', { timeout: 10000 }).should('be.visible');
 
     cy.visit('/login');
