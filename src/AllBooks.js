@@ -22,7 +22,7 @@ function AllBooks() {
         setError(null);
       } catch (err) {
         setError(err.message);
-        setData([]); // Mettre un tableau vide en cas d'erreur
+        setData([]); 
       } finally {
         setLoading(false);
       }

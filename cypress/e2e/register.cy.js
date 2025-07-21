@@ -1,7 +1,7 @@
 describe('Inscription et connexion', () => {
   const user = {
-    full_name: 'Jean Dupont',
-    email: 'lebossdu02@example.com',
+    full_name: 'Jeanne Loli',
+    email: 'llolli@example.com',
     password: 'MotDePasse123',
   };
 

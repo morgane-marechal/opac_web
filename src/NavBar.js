@@ -53,6 +53,16 @@ const Navbar = () => {
             >
               Gérer les livres
             </Button>
+            <Button 
+              component={Link} 
+              to="/admin/borrows"
+              sx={{ 
+                color: '#f0eae1',
+                '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' }
+              }}
+            >
+              Gérer les emprunts
+            </Button>
           </>
         )}
         {token ? (
