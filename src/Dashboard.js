@@ -5,7 +5,9 @@ import Chip from '@mui/material/Chip'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-// import ListeBorrowedBookCard from './BooksBorrowedByUser';
+import ListeBorrowedBookCard from './BooksBorrowedByUserActive';
+import ListeBorrowedBookCardActive from './BooksBorrowedByUserActive';
+// import ListeBorrowedBookCardLate from './BooksBorrowedByUserLate';
 
 
 const Dashboard = () => {
@@ -24,13 +26,18 @@ const Dashboard = () => {
        <Card sx={{ maxWidth: 345, margin: 5}}>
         <CardContent>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Bienvenue, {user?.fullName} Avec les droits : {user?.right}
+          Bienvenue, {user?.fullName} 
         </Typography>
+        {user?.right === 1 && (
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          Vous avez un rôle administratif.
+        </Typography>    
+        )}
+        <Typography variant="h7" sx={{ flexGrow: 1 }}>
           {user?.email}
         </Typography>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
-        Date d'inscription : {formattedDate}
+        Inscrit.e le {formattedDate}
         </Typography>
         </CardContent>
         <CardActions>
@@ -40,8 +47,9 @@ const Dashboard = () => {
       <Divider>
         <Chip label="Emprunts" size="small" />
       </Divider>
-      <Typography variant="h6" sx={{ flexGrow: 1 }}>
-       Nombre d'emprunts en ce moment :
+      <Typography variant="h6" >
+        Nombre d'emprunts en ce moment :
+        <ListeBorrowedBookCardActive></ListeBorrowedBookCardActive>
       </Typography>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres actuellement empruntés :
@@ -54,6 +62,8 @@ const Dashboard = () => {
       </Typography>
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres en retard :
+      {/* <ListeBorrowedBookCardLate></ListeBorrowedBookCardLate> */}
+
       </Typography>
       <Divider>
         <Chip label="Réservation" size="small" />
@@ -64,7 +74,7 @@ const Dashboard = () => {
       <Typography variant="h6" sx={{ flexGrow: 1 }}>
        Liste des livres réservés :
       </Typography> 
-      {/* <ListeBorrowedBookCard></ListeBorrowedBookCard> */}
+
     </Box>
   );
 };

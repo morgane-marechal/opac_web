@@ -9,31 +9,29 @@ import { Box, Grid } from '@mui/material';
 import cover from './media/placeholderbook.png';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import BookBorrowedCard from './BookBorrowedCard'
+import DashboardBookCard from './DashboardBookCard'
 
 
-const ListeBorrowedBookCard = (props) => {
+const ListeBorrowedBookCardActive = (props) => {
     console.log("props" , props)
     const { state } = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user.id)
-
-
     const [data, setData] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
     useEffect(() => {
         const fetchDataForPosts = async () => {
         try {
-            const response = await fetch(`http://localhost:3333/empruntsByUser/${user.id}`);
+            const response = await fetch(`http://localhost:3333/borrowsByUser/${user.id}?filter=active`);
             if (!response.ok) {
             throw new Error(`HTTP error: Status ${response.status}`);
             }
             let postsData = await response.json();
             setData(postsData.data || postsData);
-            console.log(postsData)
-            console.log("data f", data)          
+            console.log("active", postsData)
             setError(null);
         } catch (err) {
             setError(err.message);
@@ -41,8 +39,6 @@ const ListeBorrowedBookCard = (props) => {
         } finally {
             setLoading(false);
         }
-                    console.log('datas', data)
-
         };
         fetchDataForPosts();
     }, []);
@@ -58,23 +54,20 @@ const ListeBorrowedBookCard = (props) => {
 
 
     return (
-        <Card sx={{ 
-                display: 'flex',
-                flexDirection: 'column',
-                width: '70%',        
-                maxWidth: 1000,       
-                height: 600,
-                margin: '30px auto',  
-            }}>
-                    {/* {data.length === 0 ? (
-                        <Typography>Aucun exemplaire trouvé.</Typography>
-                        ) : (
-                        data.map((status, index) => (
-                            <BookBorrowedCard key={status.id || index} status={status} />
-                            ))                          
-                        )}         */}
-        </Card>
+        <Box     sx={{
+            display: 'flex',
+            overflowX: 'auto',
+            gap: 2, 
+            px: 2,
+            py: 1,
+            width: '100%', 
+            scrollbarWidth: 'thin',
+        }}>
+            {data.map((book, index) => (
+                <DashboardBookCard data={book} />
+            ))}      
+        </Box>
     );
 }
 
-export default ListeBorrowedBookCard;
+export default ListeBorrowedBookCardActive;
