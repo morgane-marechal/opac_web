@@ -10,6 +10,7 @@ import { FaBeer } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { BsTools } from 'react-icons/bs';
 import { BsFillInfoCircleFill } from 'react-icons/bs';
+import { AiFillFileAdd } from 'react-icons/ai';
 
 
 const BookManagementCard = (props) => {
@@ -73,8 +74,7 @@ const BookManagementCard = (props) => {
             </Box>
                 <CardActions color="tertiary.main">
                     <Button size="small" component={Link} 
-                        to="/admin/registerBookCopy" state={{ book: props }}> <FaDeleteLeft size='30px' color='#4B8F8C'/> 
-                        Ajouter
+                        to="/admin/registerBookCopy" state={{ book: props }}> <AiFillFileAdd size='30px' color='#4B8F8C'/> 
                     </Button>
                     <Button size="small" component={Link} 
                         to="/bookinfo" state={{ book: props }}> <BsFillInfoCircleFill size='30px' color='#4B8F8C'/> 
