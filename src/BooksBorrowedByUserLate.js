@@ -9,7 +9,7 @@ import { Box, Grid } from '@mui/material';
 import cover from './media/placeholderbook.png';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
-// import BookBorrowedCard from './BookBorrowedCard'
+import DashboardBookCard from './DashboardBookCard'
 
 
 const ListeBorrowedBookCardLate = (props) => {
@@ -40,14 +40,12 @@ const ListeBorrowedBookCardLate = (props) => {
         } finally {
             setLoading(false);
         }
-                    console.log('datas', data)
-
         };
         fetchDataForPosts();
     }, []);
 
          useEffect(() => {
-        console.log("data mis à jour :", data);
+        console.log("data mis à jour (late):", data);
         }, [data]);   
 
     if (loading) return <Typography>Chargement...</Typography>;
@@ -57,16 +55,22 @@ const ListeBorrowedBookCardLate = (props) => {
 
 
     return (
-        <Card sx={{ 
+        <Box     
+            sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                width: '70%',        
-                maxWidth: 1000,       
-                height: 600,
-                margin: '30px auto',  
-            }}>
-
-        </Card>
+                overflowX: 'auto',
+                gap: 2, 
+                px: 2,
+                py: 1,
+                width: '100%', 
+                scrollbarWidth: 'thin',
+                mb:2
+            }}
+            >
+                {data.map((book, index) => (
+                    <DashboardBookCard data={book} />
+                ))}      
+        </Box>
     );
 }
 

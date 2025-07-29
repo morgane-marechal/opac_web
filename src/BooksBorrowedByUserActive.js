@@ -54,7 +54,8 @@ const ListeBorrowedBookCardActive = (props) => {
 
 
     return (
-        <Box     sx={{
+        <Box     
+        sx={{
             display: 'flex',
             overflowX: 'auto',
             gap: 2, 
@@ -62,7 +63,9 @@ const ListeBorrowedBookCardActive = (props) => {
             py: 1,
             width: '100%', 
             scrollbarWidth: 'thin',
-        }}>
+            mb:2
+        }}
+        >
             {data.map((book, index) => (
                 <DashboardBookCard data={book} />
             ))}      

@@ -5,26 +5,24 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaBeer } from 'react-icons/fa';
-import { FaDeleteLeft } from 'react-icons/fa6';
-import { BsTools } from 'react-icons/bs';
-import { BsFillInfoCircleFill } from 'react-icons/bs';
-
 
 const DashboardBookCard = (props) => {
  
-console.log("dashboard book card",props)
-// console.log(props.data.borrowDate)
-// const date = props.data.borrowDate 
-// const formattedDateBorrow = new Intl.DateTimeFormat('fr-FR', {
-//         day: '2-digit',
-//         month: 'long',
-//         year: 'numeric'
-//     }).format(date);
+    console.log("dashboard book card",props)
+    // console.log(props.data.borrowDate)
+    const formatFrenchDate = (dateString) => {
+    return new Intl.DateTimeFormat('fr-FR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    }).format(new Date(dateString));
+    };
+
+    const borrowDateFormatted = formatFrenchDate(props.data.borrowDate);
+    const planeDateReturn = formatFrenchDate(props.data.planeDateReturn);
 
     return (
-        <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1 }}>
+        <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', p: 1, minWidth: 280 }}>
             <Box sx={               
                { display: 'flex', 
                 flexDirection: 'column', 
@@ -37,7 +35,7 @@ console.log("dashboard book card",props)
                        N° : {props.data.id}
                     </Typography>   
                     <Typography variant="body2" color="text.secondary" >
-                        ISBN : {props.data.ISBN}                   
+                        ISBN : {props.data.bookCopy.book.isbn}                   
                     </Typography>                       
                     </Box>
                     {/* <Box> */}
@@ -47,10 +45,10 @@ console.log("dashboard book card",props)
                     {/* </Box>
                     <Box sx = {{display:'flex', alignItems: 'center', justifyContent: 'space-between', p: 1}}> */}
                         <Typography variant="body2" color="text.secondary" >
-                            Début de l'emprunt             
+                            Début de l'emprunt le {borrowDateFormatted}         
                         </Typography>
                         <Typography variant="body2" color="text.secondary" >
-                            Date limite de retour               
+                            Date limite de retour le {planeDateReturn}             
                         </Typography>                        
                     {/* </Box> */}
                 </CardContent>

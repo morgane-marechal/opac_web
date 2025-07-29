@@ -5,8 +5,9 @@ const theme = createTheme({
     primary: {
       light: '#2A5C8D', 
       main: '#2A5C8D',  // Bleu Profond
-      dark: '#ba000d',
+      dark: '#ba000d', //rouge
       contrastText: '#000',
+      gold:'#A98E36'
     },
     secondary: {
       main: '#4B8F8C', // Vert sage
