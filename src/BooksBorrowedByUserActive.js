@@ -13,10 +13,10 @@ import DashboardBookCard from './DashboardBookCard'
 
 
 const ListeBorrowedBookCardActive = (props) => {
-    console.log("props" , props)
+    // console.log("props" , props)
     const { state } = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.id)
+    // console.log(user.id)
     const [data, setData] = useState([]); 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -44,7 +44,7 @@ const ListeBorrowedBookCardActive = (props) => {
     }, []);
 
          useEffect(() => {
-        console.log("data mis à jour :", data);
+        // console.log("data mis à jour :", data);
         }, [data]);   
 
     if (loading) return <Typography>Chargement...</Typography>;
@@ -67,7 +67,7 @@ const ListeBorrowedBookCardActive = (props) => {
         }}
         >
             {data.map((book, index) => (
-                <DashboardBookCard data={book} />
+                <DashboardBookCard data={book} key={book.id}/>
             ))}      
         </Box>
     );

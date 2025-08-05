@@ -13,10 +13,10 @@ import DashboardBookCard from './DashboardBookCard'
 
 
 const ListeBorrowedBookCardLate = (props) => {
-    console.log("props" , props)
+    // console.log("props" , props)
     const { state } = useLocation();
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user.id)
+    // console.log(user.id)
 
 
     const [data, setData] = useState([]); 
@@ -32,7 +32,7 @@ const ListeBorrowedBookCardLate = (props) => {
             }
             let postsData = await response.json();
             setData(postsData.data || postsData);
-            console.log("late : ",postsData)
+            // console.log("late : ",postsData)
             setError(null);
         } catch (err) {
             setError(err.message);
@@ -45,7 +45,7 @@ const ListeBorrowedBookCardLate = (props) => {
     }, []);
 
          useEffect(() => {
-        console.log("data mis à jour (late):", data);
+        // console.log("data mis à jour (late):", data);
         }, [data]);   
 
     if (loading) return <Typography>Chargement...</Typography>;
@@ -68,7 +68,7 @@ const ListeBorrowedBookCardLate = (props) => {
             }}
             >
                 {data.map((book, index) => (
-                    <DashboardBookCard data={book} />
+                    <DashboardBookCard data={book} key={book.id} />
                 ))}      
         </Box>
     );

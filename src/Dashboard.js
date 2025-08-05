@@ -8,19 +8,72 @@ import CardActions from '@mui/material/CardActions';
 import ListeBorrowedBookCard from './BooksBorrowedByUserActive';
 import ListeBorrowedBookCardActive from './BooksBorrowedByUserActive';
 import ListeBorrowedBookCardLate from './BooksBorrowedByUserLate';
+import { useEffect, useState } from "react";
+import toast from 'react-hot-toast'
 
 
-const Dashboard = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const rawDate = user?.createdAt
-  const date = new Date(rawDate);
 
-  const formattedDate = new Intl.DateTimeFormat('fr-FR', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  }).format(date);
+const Dashboard = () => {  
+      const [user, setUser] = useState(() => {
+        const storedUser = localStorage.getItem('user');
+        return storedUser ? JSON.parse(storedUser) : null;
+      });
 
+      // Sécurisation de la date
+      const rawDate = user?.createdAt;
+      const date = rawDate ? new Date(rawDate) : null;
+      const formattedDate = date
+        ? new Intl.DateTimeFormat('fr-FR', {
+            day: '2-digit',
+            month: 'long',
+            year: 'numeric'
+          }).format(date)
+        : '';
+
+      // Envoi de l'événement d'entrée sur le dashboard
+      useEffect(() => {
+        if (!user?.id) return;
+
+        fetch('http://localhost:3333/enter', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ userId: user.id }),
+        })
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Erreur lors de l’entrée dans le dashboard');
+            }
+            return res.json();
+          })
+          .then((data) => {
+            console.log('Message SSE déclenché:', data);
+          })
+          .catch((err) => {
+            console.error('Erreur API:', err);
+          });
+      }, [user?.id]);
+
+      // Réception des messages SSE
+      useEffect(() => {
+        if (!user?.id) return;
+
+        const eventSource = new EventSource(`http://localhost:3333/transmit/users/${user.id}`);
+
+        eventSource.addEventListener('dashboard', (event) => {
+          const data = JSON.parse(event.data);
+          console.log('[SSE] Message reçu :', data.message);
+          toast(data.message, {
+          duration: 5000,
+          position: 'bottom-right',
+        })
+        });
+
+        return () => {
+          eventSource.close();
+        };
+      }, [user?.id]);
   return (
     <Box sx={{p:2}} >
        <Card sx={{ maxWidth: 345, margin: 5}}>

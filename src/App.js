@@ -15,6 +15,8 @@ import BookManageForm from './BookManageForm';
 import BookRegisterForm from './BookRegisterForm';
 import BookCopyRegisterForm from './BookCopyRegisterForm';
 import BorrowsManagement from './BorrowsManagement';
+import ToastSSE from './ToastSSE'
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -23,7 +25,17 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Routes>
+      {/* <ToastSSE /> */}
+      <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+      }}
+      />      <Routes>
         <Route path="/" element={<AllBooks />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />

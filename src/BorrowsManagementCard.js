@@ -34,7 +34,7 @@ console.log("status livre emprunté",  data )
     };
 
     return (
-    <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>
+    <Card sx={{ display: 'flex', width:'100%', alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>
         <CardContent sx={{ display: 'flex', gap: 4 }}>
         <Typography variant="body2">
             N° {data.id}
