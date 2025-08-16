@@ -47,13 +47,9 @@ function BooksManagement() {
             Ajouter une notice de document
         </Button>
       
-      {/* <Grid container spacing={3}> */}
         {data.map((book, index) => (
-        //   <Grid item key={index} xs={12} sm={6} md={4} lg={3}> {/* Responsive grid */}
             <BookManagementCard data={book} />
-        //   </Grid>
         ))}
-      {/* </Grid> */}
     </Container>
   );
 }

@@ -10,8 +10,8 @@ import ListeBorrowedBookCardActive from './BooksBorrowedByUserActive';
 import ListeBorrowedBookCardLate from './BooksBorrowedByUserLate';
 import { useEffect, useState } from "react";
 import toast from 'react-hot-toast'
-
-
+import ToastLateBook from './ToastLateBook'
+import {Toaster} from 'react-hot-toast'
 
 const Dashboard = () => {  
       const [user, setUser] = useState(() => {
@@ -29,7 +29,7 @@ const Dashboard = () => {
             year: 'numeric'
           }).format(date)
         : '';
-
+console.log('User in Dashboard:', user);
       // Envoi de l'événement d'entrée sur le dashboard
       useEffect(() => {
         if (!user?.id) return;
@@ -63,19 +63,31 @@ const Dashboard = () => {
 
         eventSource.addEventListener('dashboard', (event) => {
           const data = JSON.parse(event.data);
-          console.log('[SSE] Message reçu :', data.message);
-          toast(data.message, {
-          duration: 5000,
-          position: 'bottom-right',
-        })
+          // console.log('[SSE] Message reçu :', data.message);
+          // toast(data.message, {
+          //   duration: 5000,
+          //   position: 'bottom-right',
+          // })
         });
 
         return () => {
           eventSource.close();
         };
       }, [user?.id]);
+
   return (
     <Box sx={{p:2}} >
+      <ToastLateBook userId={user?.id}/>
+      {/* <Toaster
+        position="bottom-right"
+        toastOptions={{
+          duration: 5000,
+          style: {
+            background: '#363636',
+            color: '#fff',
+          },
+      }}
+      />  */}
        <Card sx={{ maxWidth: 345, margin: 5}}>
         <CardContent>
         <Typography variant="h6" color='primary.gold' sx={{ flexGrow: 1 }}>
