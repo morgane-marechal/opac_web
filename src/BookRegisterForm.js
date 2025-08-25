@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { updateBookSchema } from './validationSchema'; // Renomme le si besoin
+import { updateBookSchema } from './validationSchema'; // ton schema de validation
 import {
   TextField,
   Button,
@@ -19,17 +19,18 @@ import {
 const BookRegisterForm = () => {
   const [serverError, setServerError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [selectedAuthorIds, setSelectedAuthorIds] = useState([]);
   const [dataAuthors, setDataAuthors] = useState([]);
   const [dataEditors, setDataEditors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
+    control,
   } = useForm({
     resolver: yupResolver(updateBookSchema),
   });
@@ -64,40 +65,46 @@ const BookRegisterForm = () => {
     fetchEditors();
   }, []);
 
-  const onSubmit = async (formData) => {
-    setServerError('');
-    setSuccessMessage('');
+const onSubmit = async (formData) => {
+  setServerError('')
+  setSuccessMessage('')
 
-    const payload = {
-      ...formData,
-      editorId: parseInt(formData.editor, 10),
-      autorIds: selectedAuthorIds,
-    };
+  // Construire le payload exactement comme attendu par le backend
+  const payload = {
+    title: formData.title,
+    description: formData.description,
+    isbn: formData.isbn,
+    dewey_indice: formData.dewey_indice,
+    cover: formData.cover,
+    pdf: formData.pdf,
+    editor_id: parseInt(formData.editor, 10), // correspond à la colonne editor_id
+    autor_ids: formData.authors.map((id) => parseInt(id, 10)), // correspond à la table pivot
+  }
 
-    console.log('Envoi au serveur (CREATE) :', JSON.stringify(payload, null, 2));
+  console.log('Envoi au serveur (CREATE) :', JSON.stringify(payload, null, 2))
 
-    try {
-      const response = await fetch('http://localhost:3333/registerBook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
+  try {
+    const response = await fetch('http://localhost:3333/registerBook', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
 
-      const result = await response.json();
+    const result = await response.json()
 
-      if (!response.ok) {
-        setServerError(result.message || 'Erreur lors de la création');
-      } else {
-        setSuccessMessage('Livre créé avec succès !');
-        reset();
-        setSelectedAuthorIds([]);
-        navigate('/admin/books');
-      }
-    } catch (error) {
-      console.error(error);
-      setServerError('Erreur réseau');
+    if (!response.ok) {
+      setServerError(result.message || 'Erreur lors de la création')
+    } else {
+      setSuccessMessage('Livre créé avec succès !')
+      reset()
+      navigate('/admin/books')
     }
-  };
+  } catch (error) {
+    console.error(error)
+    setServerError('Erreur réseau')
+  }
+}
+
 
   if (loading) return <Typography>Chargement...</Typography>;
   if (error) return <Typography color="error">Erreur : {error}</Typography>;
@@ -119,27 +126,34 @@ const BookRegisterForm = () => {
             helperText={errors.title?.message}
           />
 
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="author-label">Auteurs</InputLabel>
-            <Select
-              labelId="author-label"
-              multiple
-              value={selectedAuthorIds}
-              onChange={(e) => setSelectedAuthorIds(e.target.value)}
-              renderValue={(selected) =>
-                dataAuthors
-                  .filter((author) => selected.includes(author.id))
-                  .map((a) => a.name)
-                  .join(', ')
-              }
-            >
-              {dataAuthors.map((author) => (
-                <MenuItem key={author.id} value={author.id}>
-                  {author.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          {/* Auteurs */}
+          <Controller
+            name="authors"
+            control={control}
+            defaultValue={[]}
+            render={({ field }) => (
+              <FormControl fullWidth margin="normal">
+                <InputLabel id="author-label">Auteurs</InputLabel>
+                <Select
+                  labelId="author-label"
+                  multiple
+                  {...field}
+                  renderValue={(selected) =>
+                    dataAuthors
+                      .filter((author) => selected.includes(author.id))
+                      .map((a) => a.name)
+                      .join(', ')
+                  }
+                >
+                  {dataAuthors.map((author) => (
+                    <MenuItem key={author.id} value={author.id}>
+                      {author.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          />
 
           <TextField
             label="Description"
@@ -152,21 +166,28 @@ const BookRegisterForm = () => {
             helperText={errors.description?.message}
           />
 
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="editor-label">Éditeur</InputLabel>
-            <Select
-              labelId="editor-label"
-              defaultValue=""
-              {...register('editor')}
-              error={!!errors.editor}
-            >
-              {dataEditors.map((editor) => (
-                <MenuItem key={editor.id} value={editor.id}>
-                  {editor.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          {/* Éditeur */}
+          <Controller
+            name="editor"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <FormControl fullWidth margin="normal">
+                <InputLabel id="editor-label">Éditeur</InputLabel>
+                <Select
+                  labelId="editor-label"
+                  {...field}
+                  error={!!errors.editor}
+                >
+                  {dataEditors.map((editor) => (
+                    <MenuItem key={editor.id} value={editor.id}>
+                      {editor.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          />
 
           <Box sx={{ display: 'flex', gap: 2 }}>
             <TextField

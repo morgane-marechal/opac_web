@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 
 
 const BookStatusCard = ({ status }) => {
-
+  const token = localStorage.getItem('token');
+  const right = localStorage.getItem('right');
 
 
 
@@ -30,8 +31,10 @@ const BookStatusCard = ({ status }) => {
         (<CardActions>
             <Button size="small">Réserver</Button>
         </CardActions>) : ""}
-
-
+        {token && right === '1' ?(
+            <CardActions>
+                <Button size="small" >Supprimer l'exemplaire</Button>
+            </CardActions>) : ""}
         </Card>
     );
 

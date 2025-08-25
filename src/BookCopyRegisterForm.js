@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation} from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
   Button,
@@ -11,34 +11,26 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogActions,
 } from '@mui/material';
 
-
-
-
-
-
-
-const BookCopyRegisterForm = (props) => {
+const BookCopyRegisterForm = () => {
   const [serverError, setServerError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
 
-const { state } = useLocation();
-const passedProps = state?.book;
+  const { state } = useLocation();
+  const passedProps = state?.book;
 
   useEffect(() => {
-  console.log('Props passées via Link :', passedProps);
-    console.log('Props bookID :', passedProps.data.id);
+    console.log('Props passées via Link :', passedProps);
+    console.log('Props bookID :', passedProps?.data?.id);
+  }, [passedProps]);
 
-}, [passedProps]);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
   const onSubmit = async (formData) => {
     setServerError('');
@@ -46,7 +38,7 @@ const passedProps = state?.book;
     const bookId = passedProps.data.id;
 
     const payload = {
-      books_id: passedProps.id,
+      books_id: bookId,
       state: formData.state,
     };
 
@@ -62,21 +54,11 @@ const passedProps = state?.book;
       const result = await response.json();
 
       if (!response.ok) {
-      console.log('Erreurs de validation côté serveur:', result);
-      setServerError(result.message || 'Erreur lors de la création');
+        console.log('Erreurs de validation côté serveur:', result);
+        setServerError(result.message || 'Erreur lors de la création');
       } else {
         setSuccessMessage('Exemplaire de livre créé avec succès !');
-        const ajouterAutre = window.confirm('Exemplaire créé ! Voulez-vous ajouter un autre exemplaire ?');
-
-      if (ajouterAutre) {
-        reset();          // vide le formulaire
-        setSuccessMessage('');  // on efface le message succès (optionnel)
-        setServerError('');
-      } else {
-        navigate('/admin/bookCopy');
-      }
-        // reset();
-        // navigate('/admin/bookCopy');
+        setOpenDialog(true); 
       }
     } catch (error) {
       console.error(error);
@@ -84,8 +66,17 @@ const passedProps = state?.book;
     }
   };
 
+  const handleDialogYes = () => {
+    reset();
+    setSuccessMessage('');
+    setServerError('');
+    setOpenDialog(false);
+  };
 
-
+  const handleDialogNo = () => {
+    setOpenDialog(false);
+    navigate('/admin/books');
+  };
 
   return (
     <Container maxWidth="sm">
@@ -104,10 +95,10 @@ const passedProps = state?.book;
               {...register('state', { required: 'Ce champ est requis' })}
               error={Boolean(errors.state)}
             >
-            <MenuItem value="4" data-cy="state-disponible">Disponible</MenuItem>
-            <MenuItem value="2" data-cy="state-reserve">Réservé</MenuItem>
-            <MenuItem value="3" data-cy="state-perdu">Perdu</MenuItem>
-            <MenuItem value="1" data-cy="state-indisponible">Indisponible</MenuItem>
+              <MenuItem value="4">Disponible</MenuItem>
+              <MenuItem value="2">Réservé</MenuItem>
+              <MenuItem value="3">Perdu</MenuItem>
+              <MenuItem value="1">Indisponible</MenuItem>
             </Select>
             {errors.state && (
               <Typography color="error" variant="body2">
@@ -129,6 +120,14 @@ const passedProps = state?.book;
           {successMessage && <Typography color="success.main" mt={2}>{successMessage}</Typography>}
         </Box>
       </Paper>
+
+      <Dialog open={openDialog} onClose={handleDialogNo}>
+        <DialogTitle>Exemplaire créé ! Voulez-vous ajouter un autre exemplaire ?</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleDialogYes} color="primary">Oui</Button>
+          <Button onClick={handleDialogNo} color="secondary">Non</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 };
