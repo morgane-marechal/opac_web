@@ -26,7 +26,7 @@ export const updateBookSchema = yup.object().shape({
   description: yup.string(),
   isbn: yup.string(),
   dewey_indice: yup.string(),
-  cover: yup.string(),
+  cover: yup.string().nullable(),
   pdf: yup.string(),
   editor: yup.string(),
 });
