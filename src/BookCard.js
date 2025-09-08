@@ -25,6 +25,7 @@ const BookCard = (props) => {
                     objectFit: 'cover'
                 }}
                 image = {coverImage}
+                loading="lazy"
             />
             <Box sx={               
                { display: 'flex', 

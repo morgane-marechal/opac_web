@@ -15,6 +15,8 @@ import BookManageForm from './BookManageForm';
 import BookRegisterForm from './BookRegisterForm';
 import BookCopyRegisterForm from './BookCopyRegisterForm';
 import BorrowsManagement from './BorrowsManagement';
+import EditorForm from './EditorForm'
+import AuthorForm from './AuthorForm'
 
 
 
@@ -45,6 +47,9 @@ function App() {
       <Route path="/admin/registerBookCopy" element={<BookCopyRegisterForm/>}/>
 
       <Route path="/admin/borrows" element={<BorrowsManagement/>}/>
+      <Route path="/admin/authors" element={<AuthorForm/>}/>
+      <Route path="/admin/editors" element={<EditorForm/>}/>
+
 
       
         <Route path="*" element={<Navigate to="/login" replace />} />
