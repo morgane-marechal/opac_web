@@ -83,6 +83,7 @@ const BookCard = (props) => {
                         objectFit: 'cover'
                     }}
                     image = {coverImage}
+                    loading="lazy"
                 />
                 <CardContent sx={{ 
                         width: '80%',

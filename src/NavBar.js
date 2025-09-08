@@ -80,6 +80,12 @@ const Navbar = () => {
               <MenuItem component={Link} to="/admin/borrows" onClick={handleAdminMenuClose}>
                 Gérer les emprunts
               </MenuItem>
+              <MenuItem component={Link} to="/admin/authors" onClick={handleAdminMenuClose}>
+                Ajout d'auteurs
+              </MenuItem>
+              <MenuItem component={Link} to="/admin/editors" onClick={handleAdminMenuClose}>
+                Ajout d'éditeurs
+              </MenuItem>
             </Menu>
           </>
         )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link} from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { updateBookSchema } from './validationSchema'; // ton schema de validation
@@ -15,6 +15,10 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
+import EditorForm from './EditorForm'
+import AuthorForm from './AuthorForm'
+import { AiFillPlusCircle } from 'react-icons/ai';
+import { Modal } from '@mui/material';
 
 const BookRegisterForm = () => {
   const [serverError, setServerError] = useState('');
@@ -23,7 +27,9 @@ const BookRegisterForm = () => {
   const [dataEditors, setDataEditors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [openEditorModal, setOpenEditorModal] = useState(false);
+  const [openAuthorModal, setOpenAuthorModal] = useState(false);
+
 
   const {
     register,
@@ -31,6 +37,7 @@ const BookRegisterForm = () => {
     formState: { errors },
     reset,
     control,
+    setValue,
   } = useForm({
     resolver: yupResolver(updateBookSchema),
   });
@@ -69,7 +76,6 @@ const onSubmit = async (formData) => {
   setServerError('')
   setSuccessMessage('')
 
-  // Construire le payload exactement comme attendu par le backend
   const payload = {
     title: formData.title,
     description: formData.description,
@@ -126,7 +132,7 @@ const onSubmit = async (formData) => {
             helperText={errors.title?.message}
           />
 
-          {/* Auteurs */}
+          <Box sx={{ display: 'flex', gap: 2 }}>
           <Controller
             name="authors"
             control={control}
@@ -154,6 +160,31 @@ const onSubmit = async (formData) => {
               </FormControl>
             )}
           />
+          <Button onClick={() => setOpenAuthorModal(true)}>
+            <AiFillPlusCircle size="30px" color="#4B8F8C" />
+          </Button>
+          <Modal open={openAuthorModal} onClose={() => setOpenAuthorModal(false)}>
+            <Box
+              sx={{
+                p: 4,
+                bgcolor: "white",
+                borderRadius: 2,
+                width: 400,
+                mx: "auto",
+                mt: 10,
+              }}
+            >
+              <AuthorForm
+                onSuccess={(res) => {
+                  console.log(res)
+                  setDataAuthors((prev) => [...prev, res.author]); 
+                  setValue("editor", res.author.id);
+                  setOpenAuthorModal(false);
+                }} 
+              />
+            </Box>
+          </Modal>
+          </Box>
 
           <TextField
             label="Description"
@@ -166,7 +197,7 @@ const onSubmit = async (formData) => {
             helperText={errors.description?.message}
           />
 
-          {/* Éditeur */}
+          <Box sx={{ display: 'flex', gap: 2 }}>
           <Controller
             name="editor"
             control={control}
@@ -188,6 +219,31 @@ const onSubmit = async (formData) => {
               </FormControl>
             )}
           />
+          <Button onClick={() => setOpenEditorModal(true)}>
+            <AiFillPlusCircle size="30px" color="#4B8F8C" />
+          </Button>
+
+          <Modal open={openEditorModal} onClose={() => setOpenEditorModal(false)}>
+            <Box
+              sx={{
+                p: 4,
+                bgcolor: "white",
+                borderRadius: 2,
+                width: 400,
+                mx: "auto",
+                mt: 10,
+              }}
+            >
+              <EditorForm
+                onSuccess={(res) => {
+                  setDataEditors((prev) => [...prev, res.editor]); 
+                  setValue("editor", res.editor.id); 
+                  setOpenEditorModal(false);
+                }}               
+              />
+            </Box>
+          </Modal>
+          </Box>
 
           <Box sx={{ display: 'flex', gap: 2 }}>
             <TextField
