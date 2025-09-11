@@ -16,10 +16,6 @@ import { AiFillFileAdd } from 'react-icons/ai';
 const BookManagementCard = (props) => {
     const authors = props.data.autors || [];
     const editor = props.data.editor || [];
-
-    //   const  deleteBook= (id) => {
-    //     console.log("voir delete", props.data.id );
-    //     };  
     
     const deleteBook = async (id) => {
         const confirmation = window.confirm(`Êtes-vous sûr de vouloir supprimer ce livre "${props.data.title}"  ?`);

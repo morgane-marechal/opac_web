@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { updateBookSchema } from './validationSchema'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { AiFillPlusCircle } from 'react-icons/ai';
 import {
   TextField,
   Button,
@@ -15,15 +16,23 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
+import { Modal } from '@mui/material';
+import EditorForm from './EditorForm'
+import AuthorForm from './AuthorForm'
+
 
 const BookManageForm = () => {
   const [serverError, setServerError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const { state } = useLocation()
   const navigate = useNavigate()
+  const [openEditorModal, setOpenEditorModal] = useState(false);
+  const [openAuthorModal, setOpenAuthorModal] = useState(false);
+  const authorsBook = state.book.data.autors || [];
+
 
   // Valeurs initiales
-  const initialAuthorIds = state?.book?.data?.authors?.map((a) => a.id) || []
+  const initialAuthorIds = state?.book?.data?.autors?.map((a) => a.id) || []
   const initialEditor = state?.book?.data?.editorId || ''
 
   const {
@@ -31,6 +40,7 @@ const BookManageForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(updateBookSchema),
     defaultValues: {
@@ -44,6 +54,19 @@ const BookManageForm = () => {
       editor: initialEditor,
     },
   })
+
+  const values = {
+      title: state.book.data.title,
+      description: state.book.data.description,
+      isbn: state.book.data.isbn,
+      dewey_indice: state.book.data.deweyIndice,
+      cover: state.book.data.cover,
+      pdf: state.book.data.pdf,
+      authors: initialAuthorIds,
+      editor: initialEditor,
+  }
+ console.log("auteur du livre", authorsBook)
+  console.log("Default values:", values)
 
   // Données depuis l’API
   const [dataAuthors, setDataAuthors] = useState([])
@@ -93,7 +116,7 @@ const BookManageForm = () => {
     const payload = {
       ...formData,
       editorId: parseInt(formData.editor, 10),
-      authorIds: formData.authors,
+      autorIds: formData.authors,
     }
 
     console.log('Envoi au serveur :', payload)
@@ -151,6 +174,7 @@ const BookManageForm = () => {
             helperText={errors.description?.message}
           />
 
+        <Box sx={{ display: 'flex', gap: 2 }}>
           {/* Auteurs */}
           <Controller
             name="authors"
@@ -164,7 +188,7 @@ const BookManageForm = () => {
                   multiple
                   renderValue={(selected) =>
                     dataAuthors
-                      .filter((author) => selected.includes(author.id))
+                      .filter((a) => selected.includes(a.id))
                       .map((a) => a.name)
                       .join(', ')
                   }
@@ -178,8 +202,34 @@ const BookManageForm = () => {
               </FormControl>
             )}
           />
+          <Button onClick={() => setOpenAuthorModal(true)}>
+            <AiFillPlusCircle size="30px" color="#4B8F8C" />
+          </Button>
+           <Modal open={openAuthorModal} onClose={() => setOpenAuthorModal(false)}>
+            <Box
+              sx={{
+                p: 4,
+                bgcolor: "white",
+                borderRadius: 2,
+                width: 400,
+                mx: "auto",
+                mt: 10,
+              }}
+            >
+              <AuthorForm
+                onSuccess={(res) => {
+                  console.log(res)
+                  setDataAuthors((prev) => [...prev, res.author]); 
+                  setValue("author", res.author.id);
+                  setOpenAuthorModal(false);
+                }} 
+              />
+            </Box>
+          </Modal>  
+          </Box>       
+          
 
-          {/* Éditeur */}
+          <Box sx={{ display: 'flex', gap: 2 }}>
           <Controller
             name="editor"
             control={control}
@@ -196,7 +246,31 @@ const BookManageForm = () => {
               </FormControl>
             )}
           />
+          <Button onClick={() => setOpenEditorModal(true)}>
+            <AiFillPlusCircle size="30px" color="#4B8F8C" />
+          </Button>
 
+          <Modal open={openEditorModal} onClose={() => setOpenEditorModal(false)}>
+            <Box
+              sx={{
+                p: 4,
+                bgcolor: "white",
+                borderRadius: 2,
+                width: 400,
+                mx: "auto",
+                mt: 10,
+              }}
+            >
+              <EditorForm
+                onSuccess={(res) => {
+                  setDataEditors((prev) => [...prev, res.editor]); 
+                  setValue("editor", res.editor.id); 
+                  setOpenEditorModal(false);
+                }}               
+              />
+            </Box>
+          </Modal>
+          </Box>
           {/* ISBN + Dewey */}
           <Box sx={{ display: 'flex', gap: 2 }}>
             <TextField

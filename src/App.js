@@ -24,7 +24,8 @@ import AuthorForm from './AuthorForm'
 function App() {
   return (
     <Router>
-      <Navbar />     
+      <Navbar />
+     
       <Routes>
         <Route path="/" element={<AllBooks />} />
         <Route path="/register" element={<RegisterForm />} />
