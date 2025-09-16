@@ -9,19 +9,24 @@ import { Box, Grid } from '@mui/material';
 import cover from './media/placeholderbook.png';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from "react";
-import BookStatus from './BookStatus'
+import BookStatus from './BookStatus';
+import { Link } from 'react-router-dom';
+import { AiFillFileAdd } from 'react-icons/ai';
+
 
 
 const BookCard = (props) => {
     console.log("props" , props)
       const { state } = useLocation();
-        // const book = state?.book;
-        console.log("state", state.book.data.cover)
-    const authors = state.book.data.autors || [];
-    const editor = state.editor || [];
-    const coverImage = state.book.data.cover ? require(`./media/${state.book.data.cover}`) : cover;
+    const book = state?.book;
 
-    const bookId = state.book.data.id;
+console.log("book reçu :", book);
+        console.log("state", state.book.cover)
+    const authors = state.book.autors || [];
+    const editor = state.editor || [];
+    const coverImage = state.book.cover ? require(`./media/${state.book.cover}`) : cover;
+
+    const bookId = state.book.id;
 
     const [data, setData] = useState([]); 
     const [loading, setLoading] = useState(true);
@@ -45,8 +50,6 @@ const BookCard = (props) => {
         } finally {
             setLoading(false);
         }
-                    console.log('datas', data)
-
         };
         fetchDataForPosts();
     }, []);
@@ -67,18 +70,19 @@ const BookCard = (props) => {
                 flexDirection: 'column',
                 width: '70%',        
                 maxWidth: 1000,       
-                height: 600,
+                height: { xs: '100%', sm: 600 },
                 margin: '30px auto',  
             }}>
 
             <Box sx={               
                { display: 'flex', 
-                flexDirection: 'row', 
+                // flexDirection: 'row', 
+                flexDirection: { xs: 'column', sm: 'row' },
                 flexShrink: 0 }
                 }>
                 <CardMedia
                     sx={{ 
-                        width: '20%',
+                        width: {sm:'20%', xs: '50%'},
                         height: 200,
                         objectFit: 'cover'
                     }}
@@ -91,7 +95,7 @@ const BookCard = (props) => {
                         objectFit: 'cover'
                     }}>
                     <Typography gutterBottom variant="h6" color="primary.main" component="div">
-                        {state.book.data.title}
+                        {state.book.title}
                    </Typography>
                     <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1 }}>
                         {authors.map(author => author.name).join(', ')}                  
@@ -108,7 +112,7 @@ const BookCard = (props) => {
                             minHeight: '6em',
                         }}
                     >
-                        {state.book.data.description}
+                        {state.book.description}
                     </Typography>      
                 </CardContent>
 
@@ -118,6 +122,9 @@ const BookCard = (props) => {
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                         Les exemplaires de notre bibliothèque :               
                     </Typography> 
+                    <Button size="small" component={Link} to="/admin/registerBookCopy" state={{ book: state.book }}>
+                        <AiFillFileAdd size="30px" color="#4B8F8C" />
+                    </Button>
 
                     {data.length === 0 ? (
                         <Typography>Aucun exemplaire trouvé.</Typography>

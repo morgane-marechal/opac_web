@@ -27,7 +27,7 @@ const BookCopyRegisterForm = () => {
 
   useEffect(() => {
     console.log('Props passées via Link :', passedProps);
-    console.log('Props bookID :', passedProps?.data?.id);
+    console.log('Props bookID :', passedProps?.id);
   }, [passedProps]);
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -35,7 +35,7 @@ const BookCopyRegisterForm = () => {
   const onSubmit = async (formData) => {
     setServerError('');
     setSuccessMessage('');
-    const bookId = passedProps.data.id;
+    const bookId = passedProps.id;
 
     const payload = {
       books_id: bookId,

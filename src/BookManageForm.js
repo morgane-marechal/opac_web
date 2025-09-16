@@ -28,12 +28,12 @@ const BookManageForm = () => {
   const navigate = useNavigate()
   const [openEditorModal, setOpenEditorModal] = useState(false);
   const [openAuthorModal, setOpenAuthorModal] = useState(false);
-  const authorsBook = state.book.data.autors || [];
+  const authorsBook = state.book.autors || [];
 
 
   // Valeurs initiales
-  const initialAuthorIds = state?.book?.data?.autors?.map((a) => a.id) || []
-  const initialEditor = state?.book?.data?.editorId || ''
+  const initialAuthorIds = state?.book?.autors?.map((a) => a.id) || []
+  const initialEditor = state?.book?.editorId || ''
 
   const {
     control,
@@ -44,24 +44,24 @@ const BookManageForm = () => {
   } = useForm({
     resolver: yupResolver(updateBookSchema),
     defaultValues: {
-      title: state.book.data.title,
-      description: state.book.data.description,
-      isbn: state.book.data.isbn,
-      dewey_indice: state.book.data.deweyIndice,
-      cover: state.book.data.cover,
-      pdf: state.book.data.pdf,
+      title: state.book.title,
+      description: state.book.description,
+      isbn: state.book.isbn,
+      dewey_indice: state.book.deweyIndice,
+      cover: state.book.cover,
+      pdf: state.book.pdf,
       authors: initialAuthorIds,
       editor: initialEditor,
     },
   })
 
   const values = {
-      title: state.book.data.title,
-      description: state.book.data.description,
-      isbn: state.book.data.isbn,
-      dewey_indice: state.book.data.deweyIndice,
-      cover: state.book.data.cover,
-      pdf: state.book.data.pdf,
+      title: state.book.title,
+      description: state.book.description,
+      isbn: state.book.isbn,
+      dewey_indice: state.book.deweyIndice,
+      cover: state.book.cover,
+      pdf: state.book.pdf,
       authors: initialAuthorIds,
       editor: initialEditor,
   }
@@ -121,7 +121,7 @@ const BookManageForm = () => {
 
     console.log('Envoi au serveur :', payload)
 
-    const bookId = state.book.data.id
+    const bookId = state.book.id
 
     try {
       const response = await fetch(`http://127.0.0.1:3333/updateBook/${bookId}`, {
