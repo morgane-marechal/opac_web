@@ -60,7 +60,7 @@ const BookCard = (props) => {
                 </CardContent>
                 <CardActions sx={{ mt: 'auto' }} color="tertiary.main">
                     <Button size="small" component={Link} 
-                        to="/bookinfo" state={{ book: props }}>En savoir plus
+                        to="/bookinfo" state={{ book: props.data }}>En savoir plus
                     </Button>
                 </CardActions>
             </Box>

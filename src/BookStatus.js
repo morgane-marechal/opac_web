@@ -18,8 +18,8 @@ const BookStatusCard = ({ status }) => {
     };
 
     return (
-    <Card sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>
-        <CardContent sx={{ display: 'flex', gap: 4 }}>
+    <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>
+        <CardContent sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: {xs:1, sm: 4} }}>
         <Typography variant="body2">
             N° exemplaire : {status.id}
         </Typography>
@@ -28,7 +28,7 @@ const BookStatusCard = ({ status }) => {
         </Typography>
         </CardContent>
         {(status.state === 4) ?
-        (<CardActions>
+        (<CardActions >
             <Button size="small">Réserver</Button>
         </CardActions>) : ""}
         {token && right === '1' ?(
