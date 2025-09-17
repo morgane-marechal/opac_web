@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Toolbar, Button, Typography, Menu, MenuItem, IconButton } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { InputSearch } from "./InputSearch";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Navbar = () => {
   return (
     <AppBar position="static" sx={{ backgroundColor: '#2A5C8D' }}>
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" sx={{display:'flex', flexGrow: 1, flexDirection:'row'}}>
           <Button 
             component={Link} 
             to="/allbooks"
@@ -53,7 +54,11 @@ const Navbar = () => {
           >
             Notre collection
           </Button>
+        <InputSearch/>
         </Typography>
+
+
+
 
         {token && right === '1' && (
           <>
