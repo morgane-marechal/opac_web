@@ -19,9 +19,9 @@ const BookCard = (props) => {
     console.log("props" , props)
       const { state } = useLocation();
     const book = state?.book;
+    const token = localStorage.getItem('token');
+    const right = localStorage.getItem('right');
 
-console.log("book reçu :", book);
-        console.log("state", state.book.cover)
     const authors = state.book.autors || [];
     const editor = state.editor || [];
     const coverImage = state.book.cover ? require(`./media/${state.book.cover}`) : cover;
@@ -76,7 +76,6 @@ console.log("book reçu :", book);
 
             <Box sx={               
                { display: 'flex', 
-                // flexDirection: 'row', 
                 flexDirection: { xs: 'column', sm: 'row' },
                 flexShrink: 0 }
                 }>
@@ -122,9 +121,10 @@ console.log("book reçu :", book);
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                         Les exemplaires de notre bibliothèque :               
                     </Typography> 
+                    {token && right === '1' ?(
                     <Button size="small" component={Link} to="/admin/registerBookCopy" state={{ book: state.book }}>
                         <AiFillFileAdd size="30px" color="#4B8F8C" />
-                    </Button>
+                    </Button>): ""}
 
                     {data.length === 0 ? (
                         <Typography>Aucun exemplaire trouvé.</Typography>

@@ -3,7 +3,6 @@ import './App.css';
 import { Typography, Container, Grid } from '@mui/material'; 
 import { useEffect, useState } from "react";
 import BookCard from './BookCard';
-import { InputSearch } from "./InputSearch";
 
 function AllBooks() {
   const [data, setData] = useState([]); 
@@ -36,7 +35,7 @@ function AllBooks() {
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
-      <InputSearch/>
+
       <Typography variant="h3" component="h1" color="text.secondary" gutterBottom>
         Notre collection
       </Typography>
