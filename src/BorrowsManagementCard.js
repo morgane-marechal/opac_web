@@ -30,10 +30,10 @@ const BorrowsManagementCard = ({ data }) => {
         display: 'flex',
         flexDirection: { xs: 'column', sm: 'row' },
         alignItems: { xs: 'flex-start', sm: 'center' },
-        justifyContent: 'space-between',
-        mb: 2,
+        justifyContent:  { xs: 'flex-start', sm: 'center' },
+        m: 2,
         p: 1,
-        width: '100%',
+        width: '80%',
       }}
     >
       <CardContent
@@ -49,9 +49,9 @@ const BorrowsManagementCard = ({ data }) => {
           display: 'flex',
           flexDirection:'row',
           alignItems: 'flex-start',
-          justifyContent: 'space-between',
+          justifyContent: {sm:'space-between'},
           mb: {sm:2},
-          p: 1,
+          p: {sm:1, sx:0},
           }}>
         <Typography variant="body2" sx={{ minWidth: 50 }}>
           N° {data.id}
@@ -62,7 +62,7 @@ const BorrowsManagementCard = ({ data }) => {
         </Box>
         <Box       sx={{
           display: 'flex',
-          flexDirection:'row',
+          flexDirection:{ xs: 'column', sm: 'row' },
           alignItems: 'flex-start',
           justifyContent: 'space-between',
           mb: {sm:2},

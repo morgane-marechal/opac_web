@@ -32,31 +32,46 @@ const BookCard = (props) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
         const fetchDataForPosts = async () => {
-        try {
-            const response = await fetch(`http://localhost:3333/statusByBook/${bookId}`);
-            if (!response.ok) {
-            throw new Error(`HTTP error: Status ${response.status}`);
+            try {
+                const response = await fetch(`http://localhost:3333/statusByBook/${bookId}`);
+                if (!response.ok) {
+                throw new Error(`HTTP error: Status ${response.status}`);
+                }
+                let postsData = await response.json();
+                setData(postsData.data || postsData);
+                console.log(postsData)
+                console.log("data f", data)          
+                setError(null);
+            } catch (err) {
+                setError(err.message);
+                setData([]);            
+            } finally {
+                setLoading(false);
             }
-            let postsData = await response.json();
-            setData(postsData.data || postsData);
-            console.log(postsData)
-            console.log("data f", data)          
-            setError(null);
-        } catch (err) {
-            setError(err.message);
-            setData([]);            
-        } finally {
-            setLoading(false);
-        }
         };
-        fetchDataForPosts();
-    }, []);
+
+        useEffect(() => {
+            fetchDataForPosts();
+        }, []);
 
          useEffect(() => {
         console.log("data mis à jour :", data);
         }, [data]);   
+
+        const deleteBookCopy = async (id) => {
+            const confirmation = window.confirm(`Êtes-vous sûr de vouloir supprimer cet exemplaire?`);
+            if (!confirmation) return;
+            try {
+            const response = await fetch(`http://localhost:3333/deleteBookCopyById/${id}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Erreur lors de la suppression');
+            alert("Livre supprimé avec succès !");
+            fetchDataForPosts()
+            } catch (error) {
+            alert(`Échec de la suppression : ${error.message}`);
+            }
+        };
+
 
     if (loading) return <Typography>Chargement...</Typography>;
     if (error) return <Typography>Erreur: {error}</Typography>;
@@ -130,7 +145,7 @@ const BookCard = (props) => {
                         <Typography>Aucun exemplaire trouvé.</Typography>
                         ) : (
                         data.map((status, index) => (
-                            <BookStatus key={status.id || index} status={status} />
+                            <BookStatus key={status.id || index} status={status} onDelete={deleteBookCopy}/>
                             ))
                             
                         )}
