@@ -18,19 +18,6 @@ const BookStatusCard = ({ status, onDelete }) => {
     4: ['Disponible', 'rgb(75, 143, 140)']
     };
 
-    // const deleteBook = async (id) => {
-    //     const confirmation = window.confirm(`Êtes-vous sûr de vouloir supprimer cet exemplaire ?`);
-    //     if (!confirmation) return;
-    //     try {
-    //     const response = await fetch(`http://localhost:3333/deleteBookCopyById/${status.id}`, { method: 'DELETE' });
-    //     if (!response.ok) throw new Error('Erreur lors de la suppression');
-    //     alert("Livre supprimé avec succès !");
-    //     } catch (error) {
-    //     alert(`Échec de la suppression : ${error.message}`);
-    //     }
-    // };
-
-
     return (
     <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'center', justifyContent: 'space-between', mb: 2, p: 1 }}>
         <CardContent sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: {xs:1, sm: 4} }}>
